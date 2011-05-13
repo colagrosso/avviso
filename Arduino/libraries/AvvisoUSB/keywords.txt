@@ -1,0 +1,4 @@
+Avviso	KEYWORD1
+setApiKey	KEYWORD2
+setApplicationName	KEYWORD2
+push	KEYWORD2

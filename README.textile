@@ -1,0 +1,133 @@
+h2. Avviso
+
+Avviso is a collection of Arduino and Processing libraries and examples to send push notifications to an iOS device via "Prowl":http://www.prowlapp.com/. Arduinos with Ethernet shields work best, but USB Arduinos connected to a computer with Processing work, too. The rest of this file describes how to setup and use Avviso. These instructions are similar to those for my iOS app, "Ciao":http://github.com/colagrosso/ciao.
+
+h3. Requirements
+
+Avviso requires the "Prowl app":http://www.prowlapp.com/ and a "Prowl API key":https://www.prowlapp.com/api_settings.php. Install the Prowl app on your iOS device and paste your Prowl API key into the appropriate place in your Arduino or Processing sketch. If you know how to install Arduino or Processing libraries, you're all set. Read on for the installation details.
+
+h3. Getting Started: I don't have anything
+
+You don't need an Arduino to use Avviso. You can demo it with a stand-alone Processing sketch.
+
+p=. !http://avvisoapp.com/img/avviso-processing-ringtheredphone-screenshot.png!
+
+1. Download "Processing":http://processing.org/ and install it. 
+
+2. Copy the included @Processing/libraries/avviso/@ folder into Processing's @libraries/@ folder. The default folder on Mac OS X is:
+
+<pre><code>    ~/Documents/Processing/libraries/</code></pre>
+
+Create the @libraries/@ folder if it doesn't exist. Consult the instructions on "how to install a contributed library":http://wiki.processing.org/w/How_to_Install_a_Contributed_Library for help finding Processing's libraries/ folder.
+
+3. Launch Processing or restart it if it was already running. Select the sample Avviso app: RingTheRedPhone. Find it in the menu:
+
+bq. File > Sketchbook > libraries > avviso > examples
+
+After opening it, click "Run".
+
+4. Type a message and hit return.
+
+5. Prowl will push the message to your iOS device.
+
+h3. Getting Started: I have an Arduino, but no Ethernet shield 
+
+If you don't have an Ethernet shield, you may use your computer and a Processing sketch to connect your Arduino to your network. 
+
+1. Follow all the instructions above to install Processing and the Avviso Processing library. Make sure that you can communicate with Processing to the Prowl app on your iOS device using the RingTheRedPhone example.
+
+2. Copy all five folders (@Avviso/@, @AvvisoUSB/@, @EthernetDHCP/@, @EthernetDNS/@, and @HTTPClient/@) in the included @Arduino/libraries/@ folder into your Arduino's @libraries/@ folder. The default folder on Mac OS X is:
+
+<pre><code>    ~/Documents/Arduino/libraries/</code></pre>
+
+Create the @libraries/@ folder if it doesn't exist. Consult the "Arduino documentation on libraries":http://www.arduino.cc/en/Hacking/Libraries for help finding the libraries folder. There's more on "libraries in the reference section":http://www.arduino.cc/en/Reference/Libraries.
+
+Once you copy the folders, the structure should look like this:
+
+<pre><code>    ~/Documents/Arduino/libraries/Avviso/
+    ~/Documents/Arduino/libraries/AvvisoUSB/
+    ...</code></pre>
+
+and so on.
+
+3. Launch the Arduino IDE or restart it if it was already running. Load the AvvisoUSB (not Avviso) sketch named RingTheRedPhone. Find it the menu:
+
+bq. File > Examples > AvvisoUSB > RingTheRedPhone
+
+4. Paste in your API key and load the sketch onto your Arduino.
+
+5. Launch Processing and load the AvvisoArduino example:
+
+bq. File > Sketchbook > libraries > avviso > examples > AvvisoArduino
+
+and click "Run".
+
+6. Prowl will push the message to your iOS device.
+
+h3. Getting Started: I have an Arduino with an Ethernet shield
+
+You rock. This is the setup Avviso was designed for and where it works best. Setup is the easiest, too.
+
+1. Just like step 2 in the section above, load everything in the included @Arduino/libraries/@ folder into:
+
+<pre><code>    ~/Documents/Arduino/libraries/</code></pre>
+
+see the "Arduino documentation on libraries":http://www.arduino.cc/en/Hacking/Libraries if you need help.
+
+2. Load the Avviso (not AvvisoUSB) RingTheRedPhone example sketch from here:
+
+bq. File > Examples > Avviso > RingTheRedPhone
+
+3. Paste in your API key and load the sketch onto your Arduino.
+
+4. Prowl will push the message to your iOS device.
+
+h3. API
+
+Once you've gotten started and tested the example sketches, make a copy one of them to modify for your own sketch. The Arduino API has only four methods. Three of them are for use in @setup()@, and the fourth one is for pushing the message.
+
+h4. Avviso.begin
+
+Don't forget to call 
+
+<pre><code>    Avviso.begin();</code></pre>
+
+in the @setup()@ method of your sketch. In the Ethernet version of Avviso, this method looks up the IP address of @api.prowlapp.com@ in order to send push notifications.
+
+h4. Avviso.setApiKey
+
+Without a valid 40-byte API key in the call to @Avviso.setApiKey()@, the Prowl server will return a 401 HTTP error code. Replace the dummy code with "your Prowl API key":https://www.prowlapp.com/api_settings.php here:
+
+<pre><code>    Avviso.setApiKey("0123456789012345678901234567890123456789");</code></pre>
+
+Call @Avviso.setApiKey()@ in @setup()@.
+
+h4. Avviso.setApplicationName
+
+The application name is part of the Prowl API, and it shows up first in the push notifications.
+
+<pre><code>    Avviso.setApplicationName("Monitoring system");</code></pre>
+
+Call @Avviso.setApplicationName()@ in @setup()@.
+
+h4. Avviso.push
+
+Call @Avviso.push()@ in @setup()@ or @loop()@ after you have set the API key and application name. Every call to @Avviso.push()@  will send a new push notification to your iOS device. The call takes three parameters:
+
+<pre><code>    Avviso.push("Event name", "Message body/description", intPriorityValue);</code></pre>
+
+The event, description, and priority are part of the Prowl API, and they will show up in the app. You may refer to the "Prowl API page":http://www.prowlapp.com/api.php for size limits, but they're all reasonable, so you probably won't exceed them on a memory-constrained device like an Arduino.
+
+Avviso doesn't support the Prowl 1.2 @url@ parameter. If you'd really like to have it, contact me or make a fork with the change.
+
+h3. Credits
+
+Thank you very much to the authors of these projects, which are distributed with the Avviso libraries:
+
+Avviso proudly uses "EthernetDHCP":http://gkaindl.com/software/arduino-ethernet/dhcp on Ethernet Arduinos to acquire an IP address. It's not strictly required, but it generally should be. The only reason I could accept not to use it is size, but even then you better have a good reason why the rest of your sketches size can't accommodate EthernetDHCP. 
+
+Avviso also uses "EthernetDNS":http://gkaindl.com/software/arduino-ethernet/dns to do a DNS lookup of @api.prowlapp.com@. In 2011 and beyond, if you're putting the IP address of a remote site into your sketch, you're officially doing it wrong.
+
+Avviso required a slight change to "HTTPClient":https://github.com/colagrosso/HTTPClient, so the link is to my fork of the otherwise great library from "Interactive Matter":https://github.com/interactive-matter. The Prowl API is not RESTful, but in general use HTTPClient when dealing with a REST-based web service. It handles details your shouldn't re-implement yourself, including URL encoding.
+
+The Processing sketches use an unmodified copy of "jProwlAPI":http://sourceforge.net/projects/jprowlapi/files/. In fact, the Processing file Avviso.java is a very thin wrapper around jProwlAPI.
