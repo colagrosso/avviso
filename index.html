@@ -1,1 +1,87 @@
-Avviso
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Avviso: Push notifications from your Arduino via Prowl</title>
+	<meta name="description" content="Arduino and Processing libraries and examples to send iOS push notifications via Prowl">
+	<meta name="author" content="Mike Colagrosso">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" href="/favicon.ico">
+
+    <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print">
+    <!--[if lt IE 8]>
+      <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+    <![endif]-->
+
+	<link rel="stylesheet" href="css/style.css?v=2">
+
+<link  href="http://fonts.googleapis.com/css?family=Allerta:regular" rel="stylesheet" type="text/css" >
+
+</head>
+<body>
+	<div id="container" class="container">
+		<header class="span-24">
+            <div class="span-12 prepend-12 last">
+                <h1>Avviso</h1>
+                <p>Ring the red phone from your Arduino.</p>
+                <p><a href="https://github.com/colagrosso/avviso">Avviso on GitHub</a></p>
+            </div>
+		</header>
+
+		<div id="main" role="main" class="span-24">
+
+            <div class="newsection span-12 prepend-12 last">
+                <h2>What is it?</h2>
+                <p>Avviso is a collection of Arduino and Processing libraries and examples to send push notifications to an iOS device via <a href="http://www.prowlapp.com/">Prowl</a>. Use it in place of having your Arduino send you an email or SMS. Apple's push notification service is fast and free. In January 2011, <a href="http://www.prowlapp.com/api.php">Prowl's API</a> removed the SSL requirement, making it simple to send push notifications from an Arduino. The Avviso libraries call the Prowl API directly.</p>
+            </div>
+
+            <div class="newsection span-12 prepend-12 last">
+                <h2>How do I get started?</h2>
+                <p>Get the <a href="http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=320876271">Prowl iOS app on the App Store</a> and generate a <a href="https://www.prowlapp.com/api_settings.php">Prowl API key</a>.
+                Next download <a href="https://github.com/colagrosso/avviso">Avviso on GitHub</a> and 
+                paste the API key into the RingTheRedPhone example for Processing or Arduino.
+                The Processing example looks like this:
+                </p>
+                
+                <p align="center"><a href="https://github.com/colagrosso/avviso/blob/master/Processing/libraries/avviso/examples/RingTheRedPhone/RingTheRedPhone.pde"><img src="img/avviso-processing-ringtheredphone-screenshot.png" alt="Ring the red phone" width="480" height="502" /></a></p>
+                
+                <p>The Arduino sketch is just as simple. Prowl delivers the message in a few moments through Apple's push notification service:
+                </p>
+                
+                <p align="center" style="margin:2em 0;"><img src="img/ios-push-screenshot.png" alt="iOS notification screenshot" width="319" height="270" /></p>
+                
+                
+            </div>
+
+
+            <div class="newsection span-12 prepend-12 last">
+                <h2>Support</h2>
+                <p>Open an <a href="http://github.com/colagrosso/avviso/issues">issue on GitHub</a>, or email <a href="mailto:avviso@avvisoapp.com">avviso@avvisoapp.com</a>.</p>
+            </div>
+		</div>
+
+		<footer class="span-24">
+            <p>
+                <a href="http://colagrosso.net/">Mike Colagrosso</a> created Avviso.
+            </p>
+		</footer>
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.5.1.min.js"%3E%3C/script%3E'))</script>
+	<script src="js/plugins.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/example-image.js"></script>
+	<script>
+		var _gaq=[['_setAccount','UA-12978334-6'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
+		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+		g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g,s)}(document,'script'));
+	</script>
+</body>
+</html>
