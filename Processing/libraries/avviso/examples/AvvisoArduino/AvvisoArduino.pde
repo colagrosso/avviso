@@ -59,7 +59,7 @@ void draw() {
         priorityString = priorityString.trim();
         int priority = Integer.parseInt(priorityString);
         avviso.push(eventName, messageString, priority);
-      }} else {
+      } else {
         // If the line doesn't start with CIAO_PRINT or CIAO_PRINTLN,
         // it's a debug message. Print it to the screen.
         s = s.trim();
