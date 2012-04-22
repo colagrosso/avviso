@@ -18,11 +18,14 @@
 //  <http://www.gnu.org/licenses/>.
 //
 
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#else
 #include "WProgram.h"
+#endif
 #include "Avviso.h"
 #include <string.h>
-#include <EthernetDHCP.h>
-#include <EthernetDNS.h>
+#include <Dns.h>
 #include <HTTPClient.h>
 
 #define PROWL_API_HOST "api.prowlapp.com"
@@ -35,26 +38,25 @@ AvvisoClass::AvvisoClass() {
 
 void AvvisoClass::begin() {
   
-  // // At the time of writing,
+  // At the time of writing,
   // prowlIpAddr should be {209, 20, 72, 170};
-  DNSError err = EthernetDNS.resolveHostName(PROWL_API_HOST, prowlIpAddr);
-  
+  int ret = 0;
+  DNSClient dns;
+  IPAddress remote_addr;
+
+  dns.begin(Ethernet.dnsServerIP());
+  ret = dns.getHostByName(host, remote_addr);
   if (AVVISO_DEBUG) {
-    if (DNSSuccess == err) {
+    if (ret == SUCCESS) {
       Serial.print("The IP address of ");
       Serial.print(PROWL_API_HOST);
       Serial.print(" is: ");
-      static char buf[16];
-      sprintf(buf, "%d.%d.%d.%d\0", prowlIpAddr[0], prowlIpAddr[1], prowlIpAddr[2], prowlIpAddr[3]);
-      Serial.print(buf);
-      Serial.println(".");
-    } else if (DNSTimedOut == err) {
+      remote_addr.printTo(Serial);
+    } else if (ret == TIMED_OUT) {
       Serial.println("Timed out.");
-    } else if (DNSNotFound == err) {
-      Serial.println("Does not exist.");
     } else {
-      Serial.print("Failed with error code ");
-      Serial.print((int)err, DEC);
+      Serial.print("Failed with error code: ");
+      Serial.print(ret);
       Serial.println(".");
     }
   }

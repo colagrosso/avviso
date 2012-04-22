@@ -27,13 +27,11 @@
 // It also adds (synchronous) DNS from EthernetDNS.
 //
 
-#if defined(ARDUINO) && ARDUINO > 18
 #include <SPI.h>
-#endif
 #include <Ethernet.h>
-#include <EthernetDHCP.h>
-#include <EthernetDNS.h>
+
 #include <HTTPClient.h>
+#include <Ethernet.h>
 #include <Avviso.h>
 
 #define DEBUG 1
@@ -46,29 +44,21 @@ void setup() {
   counterValue = 10;
   Serial.begin(115200);
   if (DEBUG) Serial.println("Attempting to obtain a DHCP lease...");
-  EthernetDHCP.begin(mac);
+  Ethernet.begin(mac);
 
   if (DEBUG) {
-    const byte* ipAddr = EthernetDHCP.ipAddress();
-    const byte* gatewayAddr = EthernetDHCP.gatewayIpAddress();
-    const byte* dnsAddr = EthernetDHCP.dnsIpAddress();
-
-    Serial.println("A DHCP lease has been obtained.");
-
-    Serial.print("My IP address is ");
-    Serial.println(ip_to_str(ipAddr));
+    Serial.print("My IP address: ");
+    Ethernet.localIP().printTo(Serial);
+    Serial.println();
 
     Serial.print("Gateway IP address is ");
-    Serial.println(ip_to_str(gatewayAddr));
+    Ethernet.gatewayIP().printTo(Serial);
+    Serial.println();
 
     Serial.print("DNS IP address is ");
-    Serial.println(ip_to_str(dnsAddr));
+    Ethernet.dnsServerIP().printTo(Serial);
+    Serial.println();
   }
-
-  // Avviso depends on EthernetDNS to look up the address of 
-  // api.prowlapp.com. If you remove EthernetDNS, add the IP
-  // address manually to the begin() method in Avviso.cpp.
-  EthernetDNS.setDNSServer(EthernetDHCP.dnsIpAddress());
 
   Avviso.begin();
   // Go to
@@ -81,9 +71,6 @@ void setup() {
 }
 
 void loop() {
-  // Call this once per loop().
-  EthernetDHCP.maintain();  
-  
   if (counterValue > 0) {
     if (DEBUG) Serial.println(counterValue);
     counterValue--;
@@ -99,12 +86,4 @@ void loop() {
       if (DEBUG) Serial.print(returnCode);      
     }
   }  
-}
-
-// Just a utility function to nicely format an IP address.
-const char* ip_to_str(const uint8_t* ipAddr)
-{
-  static char buf[16];
-  sprintf(buf, "%d.%d.%d.%d\0", ipAddr[0], ipAddr[1], ipAddr[2], ipAddr[3]);
-  return buf;
 }
