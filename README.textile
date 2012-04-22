@@ -124,10 +124,6 @@ h3. Credits
 
 Thank you very much to the authors of these projects, which are distributed with the Avviso libraries:
 
-Avviso proudly uses "EthernetDHCP":http://gkaindl.com/software/arduino-ethernet/dhcp on Ethernet Arduinos to acquire an IP address. It's not strictly required, but it generally should be. The only reason I could accept not to use it is size, but even then you better have a good reason why the rest of your sketches size can't accommodate EthernetDHCP. 
-
-Avviso also uses "EthernetDNS":http://gkaindl.com/software/arduino-ethernet/dns to do a DNS lookup of @api.prowlapp.com@. In 2011 and beyond, if you're putting the IP address of a remote site into your sketch, you're officially doing it wrong.
-
-Avviso required a slight change to "HTTPClient":https://github.com/colagrosso/HTTPClient, so the link is to my fork of the otherwise great library from "Interactive Matter":https://github.com/interactive-matter. The Prowl API is not RESTful, but in general use HTTPClient when dealing with a REST-based web service. It handles details your shouldn't re-implement yourself, including URL encoding.
+Avviso requires the great "HTTPClient":https://github.com/interactive-matter/HTTPClient library from "Interactive Matter":https://github.com/interactive-matter. The Prowl API is not RESTful, but in general use HTTPClient when dealing with a REST-based web service. It handles details your shouldn't re-implement yourself, including URL encoding.
 
 The Processing sketches use an unmodified copy of "jProwlAPI":http://sourceforge.net/projects/jprowlapi/files/. In fact, the Processing file Avviso.java is a very thin wrapper around jProwlAPI.

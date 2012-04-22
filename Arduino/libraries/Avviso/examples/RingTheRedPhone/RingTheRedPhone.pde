@@ -20,13 +20,6 @@
 
 // Sends a push notification to your iOS device via Prowl
 
-// This example adds DHCP, based on the EthernetDHCP's SynchronousDHCP.pde
-// example. Find that example in the Arduino IDE at:
-//    File >> Examples >> EthernetDHCP >> SynchronousDHCP
-//
-// It also adds (synchronous) DNS from EthernetDNS.
-//
-
 #include <SPI.h>
 #include <Ethernet.h>
 
