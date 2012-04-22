@@ -25,6 +25,7 @@
 #endif
 #include "Avviso.h"
 #include <string.h>
+#include <Ethernet.h>
 #include <Dns.h>
 #include <HTTPClient.h>
 
@@ -45,14 +46,14 @@ void AvvisoClass::begin() {
   IPAddress remote_addr;
 
   dns.begin(Ethernet.dnsServerIP());
-  ret = dns.getHostByName(host, remote_addr);
+  ret = dns.getHostByName(PROWL_API_HOST, remote_addr);
   if (AVVISO_DEBUG) {
-    if (ret == SUCCESS) {
+    if (ret == 1) {
       Serial.print("The IP address of ");
       Serial.print(PROWL_API_HOST);
       Serial.print(" is: ");
       remote_addr.printTo(Serial);
-    } else if (ret == TIMED_OUT) {
+    } else if (ret == -1) {
       Serial.println("Timed out.");
     } else {
       Serial.print("Failed with error code: ");
