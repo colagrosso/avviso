@@ -1,3 +1,4 @@
+
 *************************************
 *             HTTPClient            *
 *************************************
@@ -92,3 +93,8 @@ All request take a number of parameters (depending on the request type):
     };
     
 Even though the HTTPClient supports HTTP 1.1 request no keep alive requests are supported currently.
+
+*** Contributions ****
+
+Thanks to colagrosso http://github.com/colagrosso for fixing the URL encoding
+Thanks to hex705 http://github.com/hex705 for properly porting it to Arduino 1.0
