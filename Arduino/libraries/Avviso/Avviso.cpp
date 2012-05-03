@@ -53,6 +53,9 @@ void AvvisoClass::begin() {
       Serial.print(PROWL_API_HOST);
       Serial.print(" is: ");
       remote_addr.printTo(Serial);
+      for (int i = 0; i < 4; i++) {
+          prowlIpAddr[i] = remote_addr[i];
+      }
     } else if (ret == -1) {
       Serial.println("Timed out.");
     } else {
