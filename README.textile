@@ -32,13 +32,13 @@ After opening it, click "Run".
 
 4. Type a message and hit return.
 
-5. Prowl will push the message to your iOS device.
+5. Prowl/Notify My Android will push the message to your iOS/Android device.
 
 h3. Getting Started: I have an Arduino, but no Ethernet shield 
 
 If you don't have an Ethernet shield, you may use your computer and a Processing sketch to connect your Arduino to your network. 
 
-1. Follow all the instructions above to install Processing and the Avviso Processing library. Make sure that you can communicate with Processing to the Prowl app on your iOS device using the RingTheRedPhone example.
+1. Follow all the instructions above to install Processing and the Avviso Processing library. Make sure that you can communicate with Processing to push a notification to your device using the RingTheRedPhone example.
 
 2. Copy all five folders (@Avviso/@, @AvvisoUSB/@, @EthernetDHCP/@, @EthernetDNS/@, and @HTTPClient/@) in the included @Arduino/libraries/@ folder into your Arduino's @libraries/@ folder. The default folder on Mac OS X is:
 
@@ -66,7 +66,7 @@ bq. File > Sketchbook > libraries > avviso > examples > AvvisoArduino
 
 and click "Run".
 
-6. Prowl will push the message to your iOS device.
+6. Prowl/Notify My Android will push the message to your iOS/Android device.
 
 h3. Getting Started: I have an Arduino with an Ethernet shield
 
@@ -84,7 +84,7 @@ bq. File > Examples > Avviso > RingTheRedPhone
 
 3. Paste in your API key and load the sketch onto your Arduino.
 
-4. Prowl will push the message to your iOS device.
+4. Prowl/Notify My Android will push the message to your iOS/Android device.
 
 h3. API
 
@@ -113,7 +113,7 @@ Call @Avviso.setApiKey()@ in @setup()@.
 
 h4. Avviso.setApplicationName
 
-The application name is part of the Prowl API, and it shows up first in the push notifications.
+The application name is part of the push notification API, and it shows up first in the push notifications.
 
 <pre><code>    Avviso.setApplicationName("Monitoring system");</code></pre>
 
@@ -125,10 +125,9 @@ Call @Avviso.push()@ in @setup()@ or @loop()@ after you have set the API key and
 
 <pre><code>    Avviso.push("Event name", "Message body/description", intPriorityValue);</code></pre>
 
-The event, description, and priority are part of the Prowl API, and they will show up in the app. You may refer to the "Prowl API page":http://www.prowlapp.com/api.php or "Notify My Android API page":https://www.notifymyandroid.com/api.jsp for size limits, but they're all reasonable, so you probably won't exceed them on a memory-constrained device like an Arduino.
+The event, description, and priority are part of the push notification API, and they will show up in the app. You may refer to the "Prowl API page":http://www.prowlapp.com/api.php or "Notify My Android API page":https://www.notifymyandroid.com/api.jsp for size limits, but they're all reasonable, so you probably won't exceed them on a memory-constrained device like an Arduino.
 
-Avviso doesn't support the Prowl 1.2 @url@ parameter. It also doesn't support the Notify My Android @developerkey@ or @content-type@ parameters.
-If you'd really like to have it, contact me or make a fork with the change.
+Avviso doesn't support the Prowl 1.2 @url@ parameter. It also doesn't support the Notify My Android @developerkey@ or @content-type@ parameters. If you'd really like to have it, contact me or make a fork with the change.
 
 h3. Credits
 
