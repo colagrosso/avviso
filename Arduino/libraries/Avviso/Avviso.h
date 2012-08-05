@@ -37,7 +37,7 @@ class AvvisoClass {
 
   private:
     byte notificationServiceIpAddr[4];
-    char apiKey[41];
+    char apiKey[51];
     char applicationName[257];
     char *notificationServiceHost;
     char *notificationServiceUrlPath;

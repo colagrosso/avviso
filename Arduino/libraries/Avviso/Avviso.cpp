@@ -76,6 +76,7 @@ void AvvisoClass::begin(DeliveryMechanism deliveryMechanism) {
       Serial.print(notificationServiceHost);
       Serial.print(" is: ");
       remote_addr.printTo(Serial);
+      Serial.println(".");
     } else if (ret == -1) {
       Serial.println("Timed out.");
     } else {
@@ -87,7 +88,7 @@ void AvvisoClass::begin(DeliveryMechanism deliveryMechanism) {
 }
 
 void AvvisoClass::setApiKey(char *aApiKey) {
-  strncpy(apiKey, aApiKey, 41);
+  strncpy(apiKey, aApiKey, 51);
 }
 
 void AvvisoClass::setApplicationName(char *aApplicationName) {
