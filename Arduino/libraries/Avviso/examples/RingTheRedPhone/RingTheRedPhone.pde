@@ -18,7 +18,8 @@
 //  <http://www.gnu.org/licenses/>.
 //
 
-// Sends a push notification to your iOS device via Prowl
+// Sends a push notification to your iOS device via Prowl or Android
+// device via Notify My Android.
 
 #include <SPI.h>
 #include <Ethernet.h>
@@ -53,9 +54,14 @@ void setup() {
     Serial.println();
   }
 
-  Avviso.begin();
-  // Go to
+  // To use Notify My Android instead of Prowl, use this line:
+  // Avviso.begin(NOTIFY_MY_ANDROID);
+  Avviso.begin(NOTIFY_MY_ANDROID);
+  // For Prowl, go to
   //   https://www.prowlapp.com/api_settings.php
+  // to create an API key.
+  // For Notify My Android, go to
+  //   https://www.notifymyandroid.com/account.jsp
   // to create an API key.
   // If you don't, the server will return a 401 error code.
   Avviso.setApiKey("0123456789012345678901234567890123456789");

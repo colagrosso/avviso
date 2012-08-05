@@ -21,18 +21,26 @@
 #ifndef AVVISO_H
 #define AVVISO_H
 
+typedef enum DeliveryMechanism {
+  PROWL,
+  NOTIFY_MY_ANDROID
+} DeliveryMechanism;
+
 class AvvisoClass {
   public:
     AvvisoClass();
     void begin();
+    void begin(DeliveryMechanism deliveryMechanism);
     void setApiKey(char *apiKey);
     void setApplicationName(char *applicationName);
     int push(char *eventStr, char *messageStr, int priority);
 
   private:
-    byte prowlIpAddr[4];
+    byte notificationServiceIpAddr[4];
     char apiKey[41];
     char applicationName[257];
+    char *notificationServiceHost;
+    char *notificationServiceUrlPath;
 };
 
 extern AvvisoClass Avviso;

@@ -30,7 +30,10 @@
 #include <HTTPClient.h>
 
 #define PROWL_API_HOST "api.prowlapp.com"
-#define PUSH_PATH_URI "/publicapi/add"
+#define PROWL_PUSH_PATH_URI "/publicapi/add"
+
+#define NMA_API_HOST "www.notifymyandroid.com"
+#define NMA_PUSH_PATH_URI "/publicapi/notify"
 
 #define AVVISO_DEBUG 0
 
@@ -38,25 +41,39 @@ AvvisoClass::AvvisoClass() {
 }
 
 void AvvisoClass::begin() {
+  begin(PROWL);
+}
+
+void AvvisoClass::begin(DeliveryMechanism deliveryMechanism) {
+
+  if (deliveryMechanism == PROWL) {
+    notificationServiceHost = PROWL_API_HOST;
+    notificationServiceUrlPath = PROWL_PUSH_PATH_URI;
+  } else {
+    notificationServiceHost = NMA_API_HOST;
+    notificationServiceUrlPath = NMA_PUSH_PATH_URI;
+  }
   
   // At the time of writing,
-  // prowlIpAddr should be {209, 20, 72, 170};
+  // notificationServiceIpAddr should be
+  //    {209, 20, 72, 170} for Prowl
+  //    {50, 116, 34, 97} for Notify My Android
   int ret = 0;
   DNSClient dns;
   IPAddress remote_addr;
 
   dns.begin(Ethernet.dnsServerIP());
-  ret = dns.getHostByName(PROWL_API_HOST, remote_addr);
+  ret = dns.getHostByName(notificationServiceHost, remote_addr);
   if (ret == 1) {
-    // Copy the DNS-resolved IPAddress bytes to prowlIpAddr
+    // Copy the DNS-resolved IPAddress bytes to notificationServiceIpAddr
     for (int i = 0; i < 4; i++) {
-        prowlIpAddr[i] = remote_addr[i];
+        notificationServiceIpAddr[i] = remote_addr[i];
     }
   }
   if (AVVISO_DEBUG) {
     if (ret == 1) {
       Serial.print("The IP address of ");
-      Serial.print(PROWL_API_HOST);
+      Serial.print(notificationServiceHost);
       Serial.print(" is: ");
       remote_addr.printTo(Serial);
     } else if (ret == -1) {
@@ -88,8 +105,8 @@ int AvvisoClass::push(char *eventStr, char *messageStr, int priority) {
   char priorityStr[5];
   sprintf(priorityStr, "%d", priority);
 
-  HTTPClient client(PROWL_API_HOST, prowlIpAddr);
-  http_client_parameter prowl_arguments[] = {
+  HTTPClient client(notificationServiceHost, notificationServiceIpAddr);
+  http_client_parameter push_arguments[] = {
       { "apikey", apiKey }, 
       { "application", applicationName }, 
       { "event", eventStr }, 
@@ -97,7 +114,7 @@ int AvvisoClass::push(char *eventStr, char *messageStr, int priority) {
       { "priority", priorityStr }, 
     { NULL ,NULL }
   };
-  FILE* result = client.getURI(PUSH_PATH_URI, prowl_arguments);
+  FILE* result = client.getURI(notificationServiceUrlPath, push_arguments);
   int returnCode = client.getLastReturnCode();
   if (result!=NULL) {
     client.closeStream(result);
