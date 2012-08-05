@@ -47,15 +47,18 @@ void AvvisoClass::begin() {
 
   dns.begin(Ethernet.dnsServerIP());
   ret = dns.getHostByName(PROWL_API_HOST, remote_addr);
+  if (ret == 1) {
+    // Copy the DNS-resolved IPAddress bytes to prowlIpAddr
+    for (int i = 0; i < 4; i++) {
+        prowlIpAddr[i] = remote_addr[i];
+    }
+  }
   if (AVVISO_DEBUG) {
     if (ret == 1) {
       Serial.print("The IP address of ");
       Serial.print(PROWL_API_HOST);
       Serial.print(" is: ");
       remote_addr.printTo(Serial);
-      for (int i = 0; i < 4; i++) {
-          prowlIpAddr[i] = remote_addr[i];
-      }
     } else if (ret == -1) {
       Serial.println("Timed out.");
     } else {
