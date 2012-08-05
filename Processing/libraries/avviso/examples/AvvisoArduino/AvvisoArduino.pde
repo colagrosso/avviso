@@ -35,6 +35,9 @@ void setup() {
   
   // Open the first serial device
   serial = new Serial(this, Serial.list()[0], 115200);
+  // To use Notify My Android, use this line to initialize avviso:
+  //avviso = new Avviso(Avviso.DeliveryMethod.NOTIFY_MY_ANDROID);
+  // and comment out this initialization:
   avviso = new Avviso();
 }
 

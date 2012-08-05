@@ -1,13 +1,17 @@
 /*
-This example posts a message to Prowl directly from Processing.
+This example posts a message to Prowl or Notify My Android directly from
+Processing.
 */
 
 import com.avvisoapp.Avviso;
 import controlP5.*;
 
-// Go to
+// For Prowl, go to
 //   https://www.prowlapp.com/api_settings.php
-// to create an API key
+// to create an API key.
+// For Notify My Android, go to
+//   https://www.notifymyandroid.com/account.jsp
+// to create an API key.
 String myApiKey = "0123456789012345678901234567890123456789";
 String myApplicationName = "My application";
 String myEventName = "New Event";
@@ -29,6 +33,9 @@ void setup() {
   
   controlP5 = new ControlP5(this);
 
+  // To use Notify My Android, use this line to initialize avviso:
+  //avviso = new Avviso(Avviso.DeliveryMethod.NOTIFY_MY_ANDROID);
+  // and comment out this initialization:
   avviso = new Avviso();
   avviso.setApiKey(myApiKey);
   avviso.setApplicationName(myApplicationName);
