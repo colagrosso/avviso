@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>Avviso: Push notifications from your Arduino via Prowl</title>
-	<meta name="description" content="Arduino and Processing libraries and examples to send iOS push notifications via Prowl">
+	<title>Avviso: Push notifications from your Arduino via Prowl or Notify My Android</title>
+	<meta name="description" content="Arduino and Processing libraries and examples to send iOS push notifications via Prowl or Notify My Android">
 	<meta name="author" content="Mike Colagrosso">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,12 +37,13 @@
 
             <div class="newsection span-12 prepend-12 last">
                 <h2>What is it?</h2>
-                <p>Avviso is a collection of Arduino and Processing libraries and examples to send push notifications to an iOS device via <a href="http://www.prowlapp.com/">Prowl</a>. Use it in place of having your Arduino send you an email or SMS. Apple's push notification service is fast and free. In January 2011, <a href="http://www.prowlapp.com/api.php">Prowl's API</a> removed the SSL requirement, making it simple to send push notifications from an Arduino. The Avviso libraries call the Prowl API directly.</p>
+                <p>Avviso is a collection of Arduino and Processing libraries and examples to send push notifications to an iOS device via <a href="http://www.prowlapp.com/">Prowl</a> or an Android device via <a href="http://www.notifymyandroid.com/">Notify My Android</a>. Use it in place of having your Arduino send you an email or SMS. Both the Prowl and Notify My Android push notification services are fast and free.</p>
             </div>
 
             <div class="newsection span-12 prepend-12 last">
                 <h2>How do I get started?</h2>
-                <p>Get the <a href="http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=320876271">Prowl iOS app on the App Store</a> and generate a <a href="https://www.prowlapp.com/api_settings.php">Prowl API key</a>.
+                <p>For iOS, get the <a href="http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=320876271">Prowl iOS app on the App Store</a> and generate a <a href="https://www.prowlapp.com/api_settings.php">Prowl API key</a>.
+                For Android, get the <a href="https://market.android.com/details?id=com.usk.app.notifymyandroid">Notify My Android app on Google Play</a> and generate a <a href="https://www.notifymyandroid.com/account.jsp">Notify My Android API key</a>.
                 Next download <a href="https://github.com/colagrosso/avviso">Avviso on GitHub</a> and 
                 paste the API key into the RingTheRedPhone example for Processing or Arduino.
                 The Processing example looks like this:
@@ -55,6 +56,10 @@
                 
                 <p align="center" style="margin:2em 0;"><img src="img/ios-push-screenshot.png" alt="iOS notification screenshot" width="319" height="270" /></p>
                 
+                <p>Notify My Android works equally well:
+                </p>
+                
+                <p align="center" style="margin:2em 0;"><img src="img/nma-push-screenshot.png" alt="Notify My Android screenshot" width="319" height="270" /></p>
                 
             </div>
 
@@ -63,12 +68,6 @@
                 <h2>Support</h2>
                 <p>Open an <a href="http://github.com/colagrosso/avviso/issues">issue on GitHub</a>, or email <a href="mailto:avviso@avvisoapp.com">avviso@avvisoapp.com</a>.</p>
             </div>
-
-            <div class="newsection span-12 prepend-12 last">
-                <h2>Like Avviso? Try Ciao.</h2>
-                <p><a href="http://ciaoapp.com">Ciao</a> is my iOS app to find your Arduino over Bonjour and talk to it on the local network.</p>
-            </div>
-
 
 		</div>
 
