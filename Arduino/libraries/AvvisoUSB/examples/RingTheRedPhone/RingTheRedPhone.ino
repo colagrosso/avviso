@@ -32,7 +32,8 @@ void setup() {
   Serial.begin(115200);
 
   // To use Notify My Android instead of Prowl, use this line:
-  // Avviso.begin(NOTIFY_MY_ANDROID);
+  //Avviso.begin(NOTIFY_MY_ANDROID);
+  // and comment out this begin line:
   Avviso.begin();
   // For Prowl, go to
   //   https://www.prowlapp.com/api_settings.php
