@@ -1,10 +1,14 @@
 h2. Avviso
 
-Avviso is a collection of Arduino and Processing libraries and examples to send push notifications to an iOS device via "Prowl":http://www.prowlapp.com/. Arduinos with Ethernet shields work best, but USB Arduinos connected to a computer with Processing work, too. The rest of this file describes how to setup and use Avviso. These instructions are similar to those for my iOS app, "Ciao":http://github.com/colagrosso/ciao.
+Avviso is a collection of Arduino and Processing libraries and examples to send push notifications to an iOS device via "Prowl":http://www.prowlapp.com/ or an Android device via "Notify My Android":http://www.notifymyandroid.com/. Arduinos with Ethernet shields work best, but USB Arduinos connected to a computer with Processing work, too. The rest of this file describes how to setup and use Avviso.
 
 h3. Requirements
 
-Avviso requires the "Prowl app":http://www.prowlapp.com/ and a "Prowl API key":https://www.prowlapp.com/api_settings.php. Install the Prowl app on your iOS device and paste your Prowl API key into the appropriate place in your Arduino or Processing sketch. If you know how to install Arduino or Processing libraries, you're all set. Read on for the installation details.
+For iOS, Avviso requires the "Prowl app":http://www.prowlapp.com/ and a "Prowl API key":https://www.prowlapp.com/api_settings.php. Install the Prowl app on your iOS device and paste your Prowl API key into the appropriate place in your Arduino or Processing sketch.
+
+For Android, Avviso requires "Notify My Android":http://www.notifymyandroid.com/ and a "Notify My Android API key":https://www.notifymyandroid.com/account.jsp. Install the Notify My Android app on your Android device and paste your Notify My Android API key into the appropriate place in your Arduino or Processing sketch. The Arduino or Processing sketches default to using Prowl, so follow the comments in the sketches to switch them to use Notify My Android instead. It's a simple one-line change.
+
+If you know how to install Arduino or Processing libraries, you're all set. Read on for the installation details.
 
 h3. Getting Started: I don't have anything
 
@@ -92,11 +96,16 @@ Don't forget to call
 
 <pre><code>    Avviso.begin();</code></pre>
 
-in the @setup()@ method of your sketch. In the Ethernet version of Avviso, this method looks up the IP address of @api.prowlapp.com@ in order to send push notifications.
+in the @setup()@ method of your sketch. In the Ethernet version of Avviso, this method looks up the IP address of @api.prowlapp.com@ (default) or @www.notifymyandroid.com@ (see the begin() call below) in order to send push notifications.
+
+To use Notify My Android, use this form:
+
+<pre><code>    Avviso.begin(NOTIFY_MY_ANDROID);</code></pre>
+
 
 h4. Avviso.setApiKey
 
-Without a valid 40-byte API key in the call to @Avviso.setApiKey()@, the Prowl server will return a 401 HTTP error code. Replace the dummy code with "your Prowl API key":https://www.prowlapp.com/api_settings.php here:
+Without a valid API key in the call to @Avviso.setApiKey()@, the push notification will fail. Replace the dummy code with your Prowl or Notify My Android API key here:
 
 <pre><code>    Avviso.setApiKey("0123456789012345678901234567890123456789");</code></pre>
 
@@ -116,9 +125,10 @@ Call @Avviso.push()@ in @setup()@ or @loop()@ after you have set the API key and
 
 <pre><code>    Avviso.push("Event name", "Message body/description", intPriorityValue);</code></pre>
 
-The event, description, and priority are part of the Prowl API, and they will show up in the app. You may refer to the "Prowl API page":http://www.prowlapp.com/api.php for size limits, but they're all reasonable, so you probably won't exceed them on a memory-constrained device like an Arduino.
+The event, description, and priority are part of the Prowl API, and they will show up in the app. You may refer to the "Prowl API page":http://www.prowlapp.com/api.php or "Notify My Android API page":https://www.notifymyandroid.com/api.jsp for size limits, but they're all reasonable, so you probably won't exceed them on a memory-constrained device like an Arduino.
 
-Avviso doesn't support the Prowl 1.2 @url@ parameter. If you'd really like to have it, contact me or make a fork with the change.
+Avviso doesn't support the Prowl 1.2 @url@ parameter. It also doesn't support the Notify My Android @developerkey@ or @content-type@ parameters.
+If you'd really like to have it, contact me or make a fork with the change.
 
 h3. Credits
 
@@ -126,4 +136,4 @@ Thank you very much to the authors of these projects, which are distributed with
 
 Avviso requires the great "HTTPClient":https://github.com/interactive-matter/HTTPClient library from "Interactive Matter":https://github.com/interactive-matter. The Prowl API is not RESTful, but in general use HTTPClient when dealing with a REST-based web service. It handles details your shouldn't re-implement yourself, including URL encoding.
 
-The Processing sketches use an unmodified copy of "jProwlAPI":http://sourceforge.net/projects/jprowlapi/files/. In fact, the Processing file Avviso.java is a very thin wrapper around jProwlAPI.
+The Processing sketches use an unmodified copies of "jProwlAPI":http://sourceforge.net/projects/jprowlapi/files/ and "NMAClientLib":https://github.com/uskr/NMAClientLib. In fact, the Processing file Avviso.java is a very thin wrapper around these libraries.
